@@ -1,6 +1,6 @@
 #pragma once
 #include <cstddef>
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <map>
@@ -20,10 +20,12 @@ namespace libmotioncapture {
     RigidBody(
       const std::string& name,
       const Eigen::Vector3f& position,
-      Eigen::Quaternionf& rotation)
+      Eigen::Quaternionf& rotation,
+      uint64_t timestamp_ns)
       : m_name(name)
       , m_position(position)
       , m_rotation(rotation)
+      , m_timestamp_ns(timestamp_ns)
     {
     }
 
@@ -39,10 +41,15 @@ namespace libmotioncapture {
       return m_rotation;
     }
 
+    uint64_t timestamp_ns() const {
+      return m_timestamp_ns;
+    }
+
   private:
     std::string m_name;
     Eigen::Vector3f m_position;
     Eigen::Quaternionf m_rotation;
+    uint64_t m_timestamp_ns;
   };
 
   class LatencyInfo

@@ -40,7 +40,8 @@ namespace libmotioncapture {
               rb.qy, // y
               rb.qz  // z
           );
-          rigidBodies->emplace(def.name, RigidBody(def.name, position, rotation));
+          uint64_t stamp;
+          rigidBodies->emplace(def.name, RigidBody(def.name, position, rotation, data->fTimestamp));
         }
       }
 

@@ -117,7 +117,7 @@ namespace libmotioncapture {
         if (scanned == 8) {
           Eigen::Vector3f pos(x,y,z);
           Eigen::Quaternionf rot(qw, qx, qy, qz);
-          rigidBodies.emplace_back(libmotioncapture::RigidBody(std::string(name), pos, rot));
+          rigidBodies.emplace_back(libmotioncapture::RigidBody(std::string(name), pos, rot, 0));
         } else {
           break;
         }

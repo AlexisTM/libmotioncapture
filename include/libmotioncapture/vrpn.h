@@ -11,7 +11,7 @@ namespace libmotioncapture {
   public:
     MotionCaptureVrpn(
       const std::string& hostname,
-      int updateFrequency = 100);
+      int updateFrequency = 1000);
 
     virtual ~MotionCaptureVrpn();
 

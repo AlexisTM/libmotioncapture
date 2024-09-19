@@ -30,7 +30,8 @@ PYBIND11_MODULE(motioncapture, m) {
   py::class_<RigidBody>(m, "RigidBody")
       .def_property_readonly("name", &RigidBody::name)
       .def_property_readonly("position", &RigidBody::position)
-      .def_property_readonly("rotation", &RigidBody::rotation);
+      .def_property_readonly("rotation", &RigidBody::rotation)
+      .def_property_readonly("timestamp_ns", &RigidBody::timestamp_ns);
 
   //
   py::class_<MotionCapture>(m, "MotionCapture")
