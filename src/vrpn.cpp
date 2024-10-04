@@ -1,5 +1,6 @@
 #include "libmotioncapture/vrpn.h"
 
+#include <cstdint>
 #include <unordered_map>
 #include <unordered_set>
 #include <iostream>
@@ -112,7 +113,9 @@ namespace libmotioncapture {
         data.second.quat[2]  // z
         );
 
-      rigidBodies_.emplace(data.first, RigidBody(data.first, position, rotation));
+      struct timeval stamp = data.second.msg_time;
+      uint64_t timestamp_ns = static_cast<uint64_t>(stamp.tv_sec) * 1000000000ULL + static_cast<uint64_t>(stamp.tv_usec) * 1000ULL;
+      rigidBodies_.emplace(data.first, RigidBody(data.first, position, rotation, timestamp_ns));
     }
     return rigidBodies_;
   }
@@ -133,8 +136,10 @@ namespace libmotioncapture {
         data->second.quat[1], // y
         data->second.quat[2]  // z
         );
-
-      return RigidBody(name, position, rotation);
+ 
+      struct timeval stamp = data->second.msg_time;
+      uint64_t timestamp_ns = static_cast<uint64_t>(stamp.tv_sec) * 1000000000ULL + static_cast<uint64_t>(stamp.tv_usec) * 1000ULL;
+      return RigidBody(name, position, rotation, timestamp_ns);
     }
     throw std::runtime_error("Unknown rigid body!");
   }

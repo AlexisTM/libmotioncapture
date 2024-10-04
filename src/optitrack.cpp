@@ -695,8 +695,8 @@ namespace libmotioncapture {
           const double swLatencySeconds = swLatencyTicks / (double)pImpl->clockFrequency;
           latencies_.emplace_back(LatencyInfo("Motive", swLatencySeconds));
 
-          // convert actual shutter timestamp to microseconds
-          timestamp_ = cameraMidExposureTimestamp * 1e6 / pImpl->clockFrequency;
+          // convert actual shutter timestamp to nanoseconds
+          timestamp_ = cameraMidExposureTimestamp * 1e9 / pImpl->clockFrequency;
         }
 
         // frame params
@@ -736,7 +736,7 @@ namespace libmotioncapture {
           rb.qy, // y
           rb.qz  // z
           );
-        rigidBodies_.emplace(def.name, RigidBody(def.name, position, rotation));
+        rigidBodies_.emplace(def.name, RigidBody(def.name, position, rotation, timestamp_));
       }
     }
     return rigidBodies_;
